@@ -8,9 +8,9 @@ namespace csharpcore
       
       if (SellIn < 0)
       {
-        Quality = Quality + 2;
+        Quality += 2;
       }
-      else Quality = Quality + 1;
+      else Quality += 1;
 
       Quality = Helper.SetMaxQualityValues(Quality);
     }
