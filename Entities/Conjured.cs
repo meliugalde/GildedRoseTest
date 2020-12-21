@@ -10,8 +10,8 @@ namespace csharpcore
           Quality = Quality - 4;
       }
       else Quality = Quality - 2;
-      
-      SetMaxQualityValues();
+
+      Quality = Helper.SetMaxQualityValues(Quality);
     }
 
     public void DoUpdateSellIn()
@@ -19,17 +19,6 @@ namespace csharpcore
       SellIn -= 1;
     }
 
-    private void SetMaxQualityValues()
-    {
-      if (Quality < 0)
-      {
-        Quality = 0;
-      }
-      else if (Quality > 50)
-      {
-        Quality = 50;
-      }
-    }
-
+   
   }
 }

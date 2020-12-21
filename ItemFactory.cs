@@ -13,7 +13,7 @@ namespace csharpcore
 
     public static Item CreateItem(string name, int sellin, int quality)
     {
-      switch (name)
+      switch (name )
       {
         case AGED_BRIE:
         {
