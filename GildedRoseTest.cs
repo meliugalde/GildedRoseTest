@@ -22,19 +22,19 @@ namespace csharpcore
 
       private static string doUpdateQuality(string name, int sellIn, int quality)
       {
-        IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
+        IList<Item> Items = new List<Item> {ItemFactory.CreateItem(name, sellIn, quality)};
         GildedRose app = new GildedRose(Items);
         app.UpdateQuality();
         string itemString = Items[0].Name + "," + Items[0].SellIn + "," + Items[0].Quality;
         return itemString;
-      }
+      }  
 
       [Fact]
       public void UpdateQuality_AgedBrie_ReturnsQualityIncreased()
       {
         //Arrange
-        Item actual = new Item {Name = "Aged Brie", SellIn = 2, Quality = 0};
-        Item expected = new Item { Name = "Aged Brie", SellIn = 1, Quality = 1 };
+        Item actual = ItemFactory.CreateItem("Aged Brie",2,  0);
+        Item expected = ItemFactory.CreateItem("Aged Brie",  1,  1 );
         List<Item> Items = new List<Item> { actual };
         GildedRose app = new GildedRose(Items);
 
@@ -50,8 +50,8 @@ namespace csharpcore
     public void UpdateQuality_AgedBrie_ReturnsSellInDecreased()
     {
       //Arrange
-      Item actual = new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 };
-      Item expected = new Item { Name = "Aged Brie", SellIn = 1, Quality = 1 };
+      Item actual = ItemFactory.CreateItem("Aged Brie", 2,  0 );
+      Item expected = ItemFactory.CreateItem("Aged Brie", 1, 1 );
       List<Item> Items = new List<Item> { actual };
       GildedRose app = new GildedRose(Items);
 
@@ -67,7 +67,7 @@ namespace csharpcore
     {
       //Arrange
       int quality = 0;
-      Item actual = new Item { Name = "Aged Brie", SellIn = 0, Quality = quality };
+      Item actual = ItemFactory.CreateItem("Aged Brie",  0, quality );
       List<Item> Items = new List<Item> { actual };
       GildedRose app = new GildedRose(Items);
 
@@ -83,7 +83,7 @@ namespace csharpcore
     {
       //Arrange
       int quality = 0;
-      Item actual = new Item { Name = "Aged Brie", SellIn = 1, Quality = quality};
+      Item actual = ItemFactory.CreateItem("Aged Brie",  1, quality);
       List<Item> Items = new List<Item> { actual };
       GildedRose app = new GildedRose(Items);
 
@@ -100,27 +100,12 @@ namespace csharpcore
       //Arrange
       IList<Item> Items = new List<Item>
       {
-        new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
-        new Item {Name = "Aged Brie", SellIn = 2, Quality = 0},
-        new Item {Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7},
-        new Item
-        {
-          Name = "Backstage passes to a TAFKAL80ETC concert",
-          SellIn = 15,
-          Quality = 20
-        },
-        new Item
-        {
-          Name = "Backstage passes to a TAFKAL80ETC concert",
-          SellIn = 10,
-          Quality = 49
-        },
-        new Item
-        {
-          Name = "Backstage passes to a TAFKAL80ETC concert",
-          SellIn = 5,
-          Quality = 49
-        }
+        ItemFactory.CreateItem( "+5 Dexterity Vest",  10,  20),
+        ItemFactory.CreateItem( "Aged Brie", 2,  0),
+        ItemFactory.CreateItem("Elixir of the Mongoose", 5, 7),
+        ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert",15, 20),
+        ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+        ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 5, 49)
       };
      
       GildedRose app = new GildedRose(Items);
@@ -138,27 +123,12 @@ namespace csharpcore
       //Arrange
       IList<Item> Items = new List<Item>
       {
-        new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
-        new Item {Name = "Aged Brie", SellIn = 2, Quality = 0},
-        new Item {Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7},
-        new Item
-        {
-          Name = "Backstage passes to a TAFKAL80ETC concert",
-          SellIn = 15,
-          Quality = 20
-        },
-        new Item
-        {
-          Name = "Backstage passes to a TAFKAL80ETC concert",
-          SellIn = 10,
-          Quality = 49
-        },
-        new Item
-        {
-          Name = "Backstage passes to a TAFKAL80ETC concert",
-          SellIn = 5,
-          Quality = 49
-        }
+        ItemFactory.CreateItem( "+5 Dexterity Vest",  10,  20),
+        ItemFactory.CreateItem( "Aged Brie", 2,  0),
+        ItemFactory.CreateItem("Elixir of the Mongoose", 5, 7),
+        ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert",15, 20),
+        ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+        ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 5, 49)
       };
 
       GildedRose app = new GildedRose(Items);
@@ -175,7 +145,7 @@ namespace csharpcore
     public void UpdateQuality_StandardsItemsQualityNotBeLowerThanZero_ReturnsTrue()
     {
       //Arrange
-      Item item = new Item { Name = "foo", SellIn = 2, Quality = 0 };
+      Item item = ItemFactory.CreateItem("foo",  2, 0 );
 
       IList<Item> Items = new List<Item> { item };
       GildedRose app = new GildedRose(Items);
@@ -190,9 +160,9 @@ namespace csharpcore
     [Fact]
     public void UpdateQuality_SulfurasQuality80_ReturnsTrue()
     {
-      Item sulfuras1 = new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 80 };
-      Item sulfuras2 = new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80};
-      Item sulfuras3 = new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 1, Quality = 80 };
+      Item sulfuras1 = ItemFactory.CreateItem("Sulfuras, Hand of Ragnaros",  -1, 80 );
+      Item sulfuras2 = ItemFactory.CreateItem("Sulfuras, Hand of Ragnaros",  0, 80);
+      Item sulfuras3 = ItemFactory.CreateItem("Sulfuras, Hand of Ragnaros",  1, 80 );
       //Arrange
       IList<Item>  Items = new List<Item> { sulfuras1, sulfuras2, sulfuras3 };
       GildedRose app = new GildedRose(Items);
@@ -209,9 +179,10 @@ namespace csharpcore
     [Fact]
     public void UpdateQuality_SulfurasSellInDoesNotModified_ReturnsTrue()
     {
-      Item sulfuras1 = new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 80 };
-      Item sulfuras2 = new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 };
-      Item sulfuras3 = new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 1, Quality = 80 };
+      Item sulfuras1 = ItemFactory.CreateItem("Sulfuras, Hand of Ragnaros", -1, 80);
+      Item sulfuras2 = ItemFactory.CreateItem("Sulfuras, Hand of Ragnaros", 0, 80);
+      Item sulfuras3 = ItemFactory.CreateItem("Sulfuras, Hand of Ragnaros", 1, 80);
+
       //Arrange
       List<Item> Items = new List<Item> { sulfuras1, sulfuras2, sulfuras3 };
       GildedRose app = new GildedRose(Items);
@@ -228,12 +199,7 @@ namespace csharpcore
     [Fact]
     public void UpdateQuality_Backstage_ReturnsQualityIncreasedBy2()
     {
-      Item backstage1 = new Item
-      {
-        Name = "Backstage passes to a TAFKAL80ETC concert",
-        SellIn = 10,
-        Quality = 20
-      };
+      Item backstage1 = ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 10,20);
     
       //Arrange
       List<Item> Items = new List<Item> { backstage1 };
@@ -250,12 +216,7 @@ namespace csharpcore
     [Fact]
     public void UpdateQuality_Backstage_ReturnsQualityIncreasedBy3()
     {
-      Item backstage1 = new Item
-      {
-        Name = "Backstage passes to a TAFKAL80ETC concert",
-        SellIn = 5,
-        Quality = 20
-      };
+      Item backstage1 = ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert",5, 20);
 
       //Arrange
       List<Item> Items = new List<Item> { backstage1 };
@@ -272,12 +233,7 @@ namespace csharpcore
     [Fact]
     public void UpdateQuality_Backstage_ReturnsQuality0()
     {
-      Item backstage1 = new Item
-      {
-        Name = "Backstage passes to a TAFKAL80ETC concert",
-        SellIn = 0,
-        Quality = 20
-      };
+      Item backstage1 = ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 0, 20);
 
       //Arrange
       List<Item> Items = new List<Item> { backstage1 };

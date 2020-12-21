@@ -19,88 +19,9 @@ namespace csharpcore
     {
       foreach (var item in Items)
       {
-        DoUpdateQuality(item);
+        ((IUpdateItem)item).DoUpdateQuality();
       }
     }
 
-    private static void DoUpdateQuality(Item item)
-    {
-      switch (item.Name)
-      {
-        case AGED_BRIE:
-          {
-            if (item.Quality < 50)
-            {
-              item.Quality = item.Quality + 1;
-            }
-
-            item.SellIn = item.SellIn - 1;
-
-            if (item.SellIn < 0)
-            {
-              {
-                if (item.Quality < 50)
-                {
-                  item.Quality = item.Quality + 1;
-                }
-              }
-            }
-
-            break;
-          }
-        case BACKSTAGE_PASSES_TO_CONCERT:
-          {
-            if (item.Quality < 50)
-            {
-              item.Quality = item.Quality + 1;
-
-              if (item.SellIn < 11)
-              {
-                if (item.Quality < 50)
-                {
-                  item.Quality = item.Quality + 1;
-                }
-              }
-
-              if (item.SellIn < 6)
-              {
-                if (item.Quality < 50)
-                {
-                  item.Quality = item.Quality + 1;
-                }
-              }
-            }
-
-            item.SellIn = item.SellIn - 1;
-
-            if (item.SellIn < 0)
-            {
-              item.Quality = 0;
-            }
-
-            break;
-          }
-        case SULFURAS_HAND_OF_RAGNAROS:
-          break;
-        default:
-          {
-            if (item.Quality > 0)
-            {
-              item.Quality = item.Quality - 1;
-            }
-            item.SellIn = item.SellIn - 1;
-
-            if (item.SellIn < 0)
-            {
-              if (item.Quality > 0)
-              {
-                item.Quality = item.Quality - 1;
-              }
-            }
-
-            break;
-          }
-      }
-    }
   }
 }
