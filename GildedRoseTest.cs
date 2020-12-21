@@ -246,5 +246,150 @@ namespace csharpcore
       Assert.True(Items[0].Quality == 0);
 
     }
+
+
+    [Fact]
+    public void UpdateQuality_ConjuredQualityDecreaseTwiceAsFast_SellInGreaterThan0_ReturnsTrue()
+    {
+      //Arrange
+      int quality = 20;
+      Item item = ItemFactory.CreateItem("Conjured Mana Cake", 10, quality);
+      Item standardItem = ItemFactory.CreateItem("foo", 10, quality);
+
+      IList<Item> Items = new List<Item> { item, standardItem };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      int qualityDifference = quality - standardItem.Quality;
+      Assert.True(item.Quality == quality -(qualityDifference*2));
+    }
+
+    [Fact]
+    public void UpdateQuality_ConjuredQualityDecreaseTwiceAsFast_SellIn0_ReturnsTrue()
+    {
+      //Arrange
+      int quality = 20;
+      Item item = ItemFactory.CreateItem("Conjured Mana Cake", 0, quality);
+      Item standardItem = ItemFactory.CreateItem("foo", 0, quality);
+
+      IList<Item> Items = new List<Item> { item, standardItem };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      int qualityDifference = quality - standardItem.Quality;
+      Assert.True(item.Quality == quality -(qualityDifference*2));
+      
+    }
+
+    [Fact]
+    public void UpdateQuality_ConjuredQualityDecreaseTwiceAsFast_SellInLesserThan0_ReturnsTrue()
+    {
+      //Arrange
+      int quality = 20;
+      Item item = ItemFactory.CreateItem("Conjured Mana Cake", -1, quality);
+      Item standardItem = ItemFactory.CreateItem("foo", -1, quality);
+
+      IList<Item> Items = new List<Item> { item, standardItem };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      int qualityDifference = quality - standardItem.Quality;
+      Assert.True(item.Quality == quality - (qualityDifference * 2));
+    }
+
+    [Fact]
+    public void UpdateQuality_ConjuredQualityDecreaseTwiceAsFast_Quality0_ReturnsTrue()
+    {
+      //Arrange
+      int quality = 0;
+
+      Item item = ItemFactory.CreateItem("Conjured Mana Cake", 1, quality);
+      Item standardItem = ItemFactory.CreateItem("foo", 1, quality);
+
+      IList<Item> Items = new List<Item> { item, standardItem };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      int qualityDifference = quality - standardItem.Quality;
+      Assert.True(item.Quality == quality - (qualityDifference * 2));
+      Assert.True(item.Quality >= 0);
+    }
+
+    [Fact]
+    public void UpdateQuality_ConjuredQualityDecreaseTwiceAsFast_ReturnsTrue()
+    {
+      //Arrange
+      int quality = 6;
+
+      Item item = ItemFactory.CreateItem("Conjured Mana Cake", 3, quality);
+      Item standardItem = ItemFactory.CreateItem("foo", 3, quality);
+
+      IList<Item> Items = new List<Item> { item, standardItem };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      int qualityDifference = quality - standardItem.Quality;
+      Assert.True(item.Quality == quality - (qualityDifference * 2));
+      Assert.True(item.Quality >= 0);
+      Assert.True(item.SellIn == standardItem.SellIn);
+    }
+
+    [Fact]
+    public void UpdateQuality_ConjuredQualityDecreaseTwiceAsFast_ReturnsQualityDifferent()
+    {
+      //Arrange
+      int quality = 6;
+
+      Item item = ItemFactory.CreateItem("Conjured Mana Cake", 3, quality);
+      Item standardItem = ItemFactory.CreateItem("foo", 3, quality);
+
+      IList<Item> Items = new List<Item> { item, standardItem };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      int qualityDifference = quality - standardItem.Quality;
+      Assert.False(item.Quality != quality - (qualityDifference * 2));
+      Assert.False(item.SellIn != standardItem.SellIn);
+    }
+
+    
+    [Fact]
+    public void UpdateQuality_ConjuredQualityDecreaseTwiceAsFast_QualityLesserThan0_ReturnsQuality()
+    {
+      //Arrange
+      int quality = -1;
+
+      Item item = ItemFactory.CreateItem("Conjured Mana Cake", -1, quality);
+      Item standardItem = ItemFactory.CreateItem("foo", -1, quality);
+
+      IList<Item> Items = new List<Item> { item, standardItem };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      Assert.True(item.Quality == quality);
+    
+    }
+
   }
 }

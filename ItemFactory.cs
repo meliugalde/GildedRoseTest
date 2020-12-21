@@ -9,7 +9,8 @@ namespace csharpcore
     private const string AGED_BRIE = "Aged Brie";
     private const string BACKSTAGE_PASSES_TO_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
     private const string SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros";
-    
+    private const string CONJURED = "Conjured Mana Cake";
+
     public static Item CreateItem(string name, int sellin, int quality)
     {
       switch (name)
@@ -24,6 +25,8 @@ namespace csharpcore
         }
         case SULFURAS_HAND_OF_RAGNAROS:
           return new Sulfuras { Name = SULFURAS_HAND_OF_RAGNAROS, SellIn = sellin, Quality = quality };
+        case CONJURED:
+          return new Conjured { Name = CONJURED, SellIn = sellin, Quality = quality };
         default:
         {
           return new StandardItem { Name = name, SellIn = sellin, Quality = quality };

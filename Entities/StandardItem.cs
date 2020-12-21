@@ -4,7 +4,6 @@ namespace csharpcore
   {
     public void DoUpdateQuality()
     {
-      {
         if (Quality > 0)
         {
           Quality = Quality - 1;
@@ -20,8 +19,6 @@ namespace csharpcore
             Quality = Quality - 1;
           }
         }
-      }
-
     }
   }
 }
