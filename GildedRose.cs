@@ -19,6 +19,7 @@ namespace csharpcore
     {
       foreach (var item in Items)
       {
+        ((IUpdateItem)item).DoUpdateSellIn();
         ((IUpdateItem)item).DoUpdateQuality();
       }
     }

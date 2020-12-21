@@ -47,6 +47,24 @@ namespace csharpcore
     }
 
     [Fact]
+    public void UpdateQuality_AgedBrie_ReturnsQualityIncreased_n150()
+    {
+      //Arrange
+      Item actual = ItemFactory.CreateItem("Aged Brie", -1, 50);
+      Item expected = ItemFactory.CreateItem("Aged Brie", -2, 50);
+      List<Item> Items = new List<Item> { actual };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      Assert.Equal(expected.Quality, Items[0].Quality);
+      Assert.Equal(expected.SellIn, Items[0].SellIn);
+      Assert.Equal(expected.Name, Items[0].Name);
+    }
+
+    [Fact]
     public void UpdateQuality_AgedBrie_ReturnsSellInDecreased()
     {
       //Arrange
@@ -247,6 +265,94 @@ namespace csharpcore
 
     }
 
+    [Fact]
+    public void UpdateQuality_Backstage6_0_ReturnsQuality0()
+    {
+      Item backstage1 = ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 6, 0);
+
+      //Arrange
+      List<Item> Items = new List<Item> { backstage1 };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      Assert.True(Items[0].Quality == 2);
+      Assert.True(Items[0].SellIn == 5);
+
+    }
+
+    [Fact]
+    public void UpdateQuality_Backstage6_1_ReturnsQuality0()
+    {
+      Item backstage1 = ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 6, 1);
+
+      //Arrange
+      List<Item> Items = new List<Item> { backstage1 };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      Assert.True(Items[0].Quality == 3);
+      Assert.True(Items[0].SellIn == 5);
+
+    }
+
+    [Fact]
+    public void UpdateQuality_Backstage6_49_ReturnsQuality0()
+    {
+      Item backstage1 = ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 6, 49);
+
+      //Arrange
+      List<Item> Items = new List<Item> { backstage1 };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      Assert.True(Items[0].Quality == 50);
+      Assert.True(Items[0].SellIn == 5);
+
+    }
+
+    [Fact]
+    public void UpdateQuality_Backstagen1_50_ReturnsQuality0()
+    {
+      Item backstage1 = ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", -1, 50);
+
+      //Arrange
+      List<Item> Items = new List<Item> { backstage1 };
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      Assert.True(Items[0].Quality == 0);
+      Assert.True(Items[0].SellIn == -2);
+
+    }
+
+    [Fact]
+    public void UpdateQuality_Backstage6_50_ReturnsQuality0()
+    {
+      Item backstage1 = ItemFactory.CreateItem("Backstage passes to a TAFKAL80ETC concert", 6, 50);
+
+      //Arrange
+      List<Item> Items = new List<Item> {backstage1};
+      GildedRose app = new GildedRose(Items);
+
+      //Act
+      app.UpdateQuality();
+
+      //Assert
+      Assert.True(Items[0].Quality == 50);
+      Assert.True(Items[0].SellIn == 5);
+    }
 
     [Fact]
     public void UpdateQuality_ConjuredQualityDecreaseTwiceAsFast_SellInGreaterThan0_ReturnsTrue()

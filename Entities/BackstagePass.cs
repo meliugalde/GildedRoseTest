@@ -4,34 +4,42 @@ namespace csharpcore
   {
     public void DoUpdateQuality()
     {
-      if (Quality < 50)
-      {
-        Quality = Quality + 1;
-
-
-        if (SellIn < 11)
+        if (Quality <= 50)
         {
-          if (Quality < 50)
+          if (SellIn < 0)
           {
-            Quality = Quality + 1;
+            Quality = 0;
           }
+          else if (SellIn < 5)
+          {
+            Quality = Quality + 3;
+          }
+          else if (SellIn < 10)
+          {
+             Quality = Quality + 2;
+          }
+          else Quality = Quality + 1;
         }
 
-        if (SellIn < 6)
-        {
-          if (Quality < 50)
-          {
-            Quality = Quality + 1;
-          }
-        }
-      }
+        SetMaxQualityValues();
+    }
 
-      SellIn = SellIn - 1;
+    public void DoUpdateSellIn()
+    {
+      SellIn -= 1;
+    }
 
-      if (SellIn < 0)
+    private void SetMaxQualityValues()
+    {
+      if (Quality < 0)
       {
         Quality = 0;
       }
+      else if (Quality > 50)
+      {
+        Quality = 50;
+      }
     }
+    
   }
 }

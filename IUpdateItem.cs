@@ -7,5 +7,6 @@ namespace csharpcore
   public interface IUpdateItem
   {
     void DoUpdateQuality();
+    void DoUpdateSellIn();
   }
 }

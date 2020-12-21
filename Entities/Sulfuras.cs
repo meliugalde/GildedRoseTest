@@ -5,5 +5,8 @@ namespace csharpcore
     public void DoUpdateQuality()
     {
     }
+    public void DoUpdateSellIn()
+    {
+    }
   }
 }
